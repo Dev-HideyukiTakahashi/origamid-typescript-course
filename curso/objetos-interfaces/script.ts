@@ -52,4 +52,22 @@ function aula02() {
 
   button?.addEventListener('click', handleClick);
 }
-aula02();
+// aula02();
+
+/* Generics */
+
+function aula03() {
+  function retorno<tipo>(a: tipo): tipo {
+    return a;
+  }
+  console.log(retorno("A game")); // inferindo no <tipo> o valor 'string', pois o parâmetro é string
+
+  // é comum passar <T> e T[]
+  function retornoArray<tipoLista>(lista: tipoLista[]): tipoLista[] {
+    return lista.slice(0, 5);
+  }
+  // não seria necessário passar <number> pois o parâmetro já é um array de number
+  console.log(retornoArray<number>([1, 2, 3, 4, 5, 6, 7, 8, 9])); // out: [ 1, 2, 3, 4, 5 ]
+  console.log(retornoArray(["Ana", "João", "Maria", "José", "Bob", "Don", "Estela", "Fernanda"])); // out: [ 'Ana', 'João', 'Maria', 'José', 'Bob' ]
+}
+aula03();
