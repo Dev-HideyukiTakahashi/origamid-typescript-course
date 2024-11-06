@@ -2,11 +2,14 @@
 // tsc : cria um arquivo .js para executar
 // tsc -w : terminal fica acompanhando e transforamndo em .js, sem necessidade de precisar 'tsc' toda hora
 
-function somar(a: number, b: number) {
-  return a + b;
-}
+function teste() {
+  function somar(a: number, b: number) {
+    return a + b;
+  }
+  console.log(somar(5, 10));
+};
+// teste();
 
-console.log(somar(5, 10));
 
 
 /*  Aula 2 - Annotation e Inference */
@@ -33,12 +36,37 @@ function aula2() {
     return a + b; // o return foi inferido o tipo number pelos parâmetros, seria o mesmo que 'somar(a: number, b: number) : number {} '
   }
 }
+// aula2();
 
-function normalizarTexto(texto: string) {
-  return texto.trim().toLowerCase();
+
+/*  Aula 3 - Union Types */
+
+function aula3() {
+
+  let total: string | number = 200;
+  total = "Hello";
+
+  function isNumber(value: string | number) {
+    if (typeof value === "number") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  console.log(isNumber("2"));
 }
+// aula3();
 
-console.log(normalizarTexto("Ola Mundo!  OK"))
-
+function toNumber(value: number | string) {
+  if (typeof value === 'number') {
+    return value;
+  } else if (typeof value === 'string') {
+    return Number(value);
+  } else {
+    throw "value deve ser um número ou string!";
+  }
+}
+console.log(toNumber(2));
 
 
