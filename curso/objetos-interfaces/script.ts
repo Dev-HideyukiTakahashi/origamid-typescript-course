@@ -70,4 +70,36 @@ function aula03() {
   console.log(retornoArray<number>([1, 2, 3, 4, 5, 6, 7, 8, 9])); // out: [ 1, 2, 3, 4, 5 ]
   console.log(retornoArray(["Ana", "João", "Maria", "José", "Bob", "Don", "Estela", "Fernanda"])); // out: [ 'Ana', 'João', 'Maria', 'José', 'Bob' ]
 }
-aula03();
+// aula03();
+
+/* Type guard, safety e narrowing */
+
+function aula04() {
+  function typeGuard(value: any) {
+    if (typeof value === 'string') {
+      return value.toUpperCase();
+    }
+    if (typeof value === 'number') {
+      return value.toFixed();
+    }
+    if (value instanceof HTMLElement) {
+      return value.innerText;
+    }
+  }
+  console.log(typeGuard('teste')); // out: TESTE
+  console.log(typeGuard(22.54874)); // out: 23
+
+  const obj = {
+    nome: 'Teste',
+    numero: 22
+  }
+
+  if ('nome' in obj) {
+    console.log("nome existe"); // true
+  }
+  if ('preco' in obj) {
+    console.log("perco existe"); // false
+  }
+}
+aula04();
+
