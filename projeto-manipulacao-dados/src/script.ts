@@ -1,3 +1,4 @@
+import Estatisticas from "./Estatisticas.js";
 import fetchData from "./fetchData.js";
 import normalizarTransacao from "./normalizarTransacao.js";
 
@@ -16,6 +17,7 @@ async function handleData() {
     });
   } */
   preencherTabela(transacoes);
+  preencherEstatisticas(transacoes);
 };
 
 // preenchendo a 'table' do html com dados do json já normalizados
@@ -34,6 +36,19 @@ function preencherTabela(transacoes: Transacao[]): void {
       </tr>
     `;
   });
+}
+
+function preencherEstatisticas(transacoes: Transacao[]): void {
+  const data = new Estatisticas(transacoes);
+
+  const totalElement = document.querySelector('#total span');
+  if (totalElement) {
+    // Convertendo para moeda local Brasil
+    totalElement.innerHTML = data.total.toLocaleString('pt-BR', {
+      style: "currency",
+      currency: 'BRL'
+    });
+  }
 }
 
 

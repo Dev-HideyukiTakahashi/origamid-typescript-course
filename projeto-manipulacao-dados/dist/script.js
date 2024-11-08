@@ -1,3 +1,4 @@
+import Estatisticas from "./Estatisticas.js";
 import fetchData from "./fetchData.js";
 import normalizarTransacao from "./normalizarTransacao.js";
 async function handleData() {
@@ -6,6 +7,7 @@ async function handleData() {
         return;
     const transacoes = data.map(normalizarTransacao);
     preencherTabela(transacoes);
+    preencherEstatisticas(transacoes);
 }
 ;
 function preencherTabela(transacoes) {
@@ -23,6 +25,16 @@ function preencherTabela(transacoes) {
       </tr>
     `;
     });
+}
+function preencherEstatisticas(transacoes) {
+    const data = new Estatisticas(transacoes);
+    const totalElement = document.querySelector('#total span');
+    if (totalElement) {
+        totalElement.innerHTML = data.total.toLocaleString('pt-BR', {
+            style: "currency",
+            currency: 'BRL'
+        });
+    }
 }
 handleData();
 //# sourceMappingURL=script.js.map
