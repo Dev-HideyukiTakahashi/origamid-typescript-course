@@ -23,13 +23,32 @@ export default class Slide {
     }
     hide(element) {
         element.classList.remove('active');
+        if (element instanceof HTMLVideoElement) {
+            element.currentTime = 0;
+            element.pause();
+        }
     }
     show(index) {
         this.index = index;
         this.slide = this.slides[this.index];
         this.slides.forEach(el => this.hide(el));
         this.slide.classList.add('active');
-        this.auto(this.time);
+        if (this.slide instanceof HTMLVideoElement) {
+            this.autoVideo(this.slide);
+        }
+        else {
+            this.auto(this.time);
+        }
+    }
+    autoVideo(video) {
+        video.muted = true;
+        video.play();
+        let firstPlay = true;
+        video.addEventListener('playing', () => {
+            if (firstPlay)
+                this.auto(video.duration * 1000);
+            firstPlay = false;
+        });
     }
     addControls() {
         const prevButton = document.createElement("button");
@@ -63,6 +82,8 @@ export default class Slide {
         this.pausedTimeout = new Timeout(() => {
             this.timeout?.pause();
             this.paused = true;
+            if (this.slide instanceof HTMLVideoElement)
+                this.slide.pause();
         }, 400);
     }
     continue() {
@@ -70,6 +91,8 @@ export default class Slide {
         if (this.paused) {
             this.paused = false;
             this.timeout?.continue();
+            if (this.slide instanceof HTMLVideoElement)
+                this.slide.play();
         }
     }
     init() {
