@@ -1,5 +1,7 @@
 // criando com classe apenas para praticar, poderia ser function
 
+import countBy from "./countBy.js";
+
 
 
 // criando uma cópia e defininindo que o valor será apenas number
@@ -15,9 +17,13 @@ function filtrarValor(transacao: Transacao): transacao is TransacaoValor {
 export default class Estatisticas {
   private transacoes;
   total;
+  pagamento;
+  status;
   constructor(transacoes: Transacao[]) {
     this.transacoes = transacoes;
     this.total = this.setTotal();
+    this.pagamento = this.setPagamento();
+    this.status = this.setStatus();
   }
 
   private setTotal() {
@@ -26,5 +32,15 @@ export default class Estatisticas {
         // sem o filtrarValor, o ts ainda reclama que o valor pode ser number | null
         return acc + item.valor;
       }, 0);
+  }
+
+  private setPagamento() {
+    // as chaves tranforma em transacao pagamento (desestrutura)
+    return countBy(this.transacoes.map(({ pagamento }) => pagamento));
+  }
+
+
+  private setStatus() {
+    return countBy(this.transacoes.map(({ status }) => status));
   }
 }
