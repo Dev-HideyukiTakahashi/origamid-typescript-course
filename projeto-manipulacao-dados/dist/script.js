@@ -39,6 +39,10 @@ function preencherEstatisticas(transacoes) {
     const data = new Estatisticas(transacoes);
     preencherChaveValor(data.pagamento, 'pagamento');
     preencherChaveValor(data.status, 'status');
+    const diaElement = document.querySelector('#melhorDia');
+    if (diaElement) {
+        diaElement.innerHTML += data.melhorDia[0];
+    }
     const totalElement = document.querySelector('#total span');
     if (totalElement) {
         totalElement.innerHTML = data.total.toLocaleString('pt-BR', {

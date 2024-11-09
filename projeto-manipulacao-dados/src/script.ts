@@ -56,6 +56,11 @@ function preencherEstatisticas(transacoes: Transacao[]): void {
   preencherChaveValor(data.pagamento, 'pagamento');
   preencherChaveValor(data.status, 'status');
 
+  const diaElement = document.querySelector('#melhorDia');
+  if (diaElement) {
+    diaElement.innerHTML += data.melhorDia[0];
+  }
+
   const totalElement = document.querySelector('#total span');
   if (totalElement) {
     // Convertendo para moeda local Brasil
